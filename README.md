@@ -6,4 +6,4 @@ It is implemented as a Node.js application with MySQL database server and uses j
 
 # Demo
 
-![Library Management System](https://drive.google.com/file/d/1YqSCMmgUH7rE2lcpNV7SyxAjGTSxGzjU/view?usp=sharing)
+![Library Management System](https://media.giphy.com/media/VGbW0HwVSU7UCam8su/giphy.gif)
