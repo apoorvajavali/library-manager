@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Library Management</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<body style="height: 100%; background-image: url('/images/book.jpg'); background-repeat: no-repeat; background-size: cover;">
+
+  <!-- Navigation -->
+  <nav class="mb-5 navbar navbar-light bg-dark sticky-top">
+    <div class="container text-white">
+      <h6>Library Management System</h6>
+    </div>
+  </nav>
+
+  <!-- Masthead -->
+  <header class="masthead">
+    <!-- <div class="overlay"></div> -->
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-4">
+            <div class="form-row">
+              <div class="col-12">
+                <form action="/searchbook" method="get">
+                  <button style="border-radius: 40px;" id="checkoutbtn" class="btn-outline-dark form-control">Issue Book</button>
+                </form>
+              </div>
+              <div class="col-12 mt-3">
+                <form action="/searchbookloan" method="get">
+                  <button style="border-radius: 40px;" id="checkinbtn" class="btn-outline-dark form-control">Check-In Book</button>
+                </form>
+              </div>
+              <div class="col-12 mt-3">
+                <form action="/managefine/all" method="get">
+                  <button style="border-radius: 40px;" id="finebtn" class="btn-outline-dark form-control">Manage Fines</button>
+                </form>
+              </div>
+              <div class="col-12 mt-3">
+                <form action="/addborrower" method="get">
+                  <button style="border-radius: 40px;" id="addborrowerbtn" class="btn-outline-dark form-control">Add Borrower</button>
+                </form>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </header>
+</body>
+</html>

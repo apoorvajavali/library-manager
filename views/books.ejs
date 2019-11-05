@@ -1,0 +1,124 @@
+<script src="./javascripts/books.js"></script>
+<table id="bookSearchResults" class="table table-sm table-hover">
+    <thead>
+        <tr>
+            <th>ISBN</th>
+            <th>Title</th>
+            <th>Authors</th>
+            <th class="text-right">Available</th>
+        </tr>
+    </thead>
+    <tbody>
+      <% for(let i = 0; i < rows.length; i++) { %>
+        <tr class='clickable-row' data-toggle="modal" data-id='<%= i %>' data-target="#checkoutModal">
+            <td><%= rows[i].isbn %></td>
+            <td><%= rows[i].title %></td>
+            <td><%= rows[i].name %></td>
+            <td class="text-right"><span class= "badge badge-<%= rows[i].available == 1 ? 'success' : 'danger' %>"><%= rows[i].available == 1 ? 'Yes' : 'No' %></span></td>
+        </tr>
+      <% } %>
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="checkoutModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <div class="py-3 px-5 z-depth-4">
+        <!--Header-->
+        <div class="modal-header text-center pb-4">
+          <h5 class="modal-title w-100" id="myModalLabel">Issue Book</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <!--Body-->
+        <div class="modal-body">
+          <!--Body-->
+          <div class="md-form mb-3">
+            <label data-error="wrong" data-success="right" for="card_id">Borrower card number</label>
+            <input id="card_id" class="form-control validate" required>
+          </div>
+          <div class="md-form mb-3">
+            <label data-error="wrong" data-success="right" for="isbn">ISBN</label>
+            <input type="email" id="isbn" class="form-control validate" readonly>
+          </div>
+          <div class="md-form mb-3">
+          <label data-error="wrong" data-success="right" for="date_out">Check out date</label>
+            <input type="email" id="date_out" class="form-control validate" readonly>
+          </div>
+          <div class="md-form mb-3">
+          <label data-error="wrong" data-success="right" for="due_date">Due date</label>
+            <input id="due_date" class="form-control validate" readonly>
+          </div>
+
+          <!--Grid row-->
+          <div class="row d-flex align-items-center mb-4">
+
+            <!--Grid column-->
+            <div class="text-center mb-3 col-md-12">
+              <button id="submitBookloan" type="button" class="btn btn-primary btn-block btn-rounded z-depth-1">Check Out</button>
+            </div>
+            <!--Grid column-->
+
+          </div>
+          <!--Grid row-->
+
+        </div>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!-- Modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="modal-title" id="successModalLabel">Success</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Book checked out!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exceedModal" tabindex="-1" role="dialog" aria-labelledby="exceedModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="modal-title" id="exceedModalLabel">Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Cannot check out. Borrower has been issued 3 books that are not checked in yet!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="cannotCheckoutModal" tabindex="-1" role="dialog" aria-labelledby="cannotCheckoutModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="modal-title" id="cannotCheckoutModalLabel">Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>This book is checked out!</p>
+      </div>
+    </div>
+  </div>
+</div>

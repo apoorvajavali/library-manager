@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Library Management</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../javascripts/manage_fines.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <nav class="mb-4 navbar navbar-light bg-dark sticky-top">
+      <div class="container text-white">
+        <h6>Library Management System - Manage Fines</h6>
+        <a class="btn btn-primary" href="/">Home</a>
+      </div>
+    </nav>
+      <div class="container">
+        <nav class="navbar navbar-expand-lg">
+          <ul class="navbar-nav">
+            <li>
+              <form id="allfineform" action="/managefine/all" method="get">
+                <button id="allfines" type="submit" class="btn btn-outline-dark <%= active == "all" ? "active" : "inactive" %>">All</button>
+              </form>
+            </li>
+          </ul>
+          <ul class="navbar-nav mr-4">
+            <li>
+              <form action="/managefine/unpaid" method="get">
+                <button id="unpaid" type="submit" class="btn btn-outline-dark <%= active == "unpaid" ? "active" : "inactive" %>">Unpaid</button>
+              </form>
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+            <li>
+              <button id="update" style="border-radius:20px;" class="btn btn-primary">Update</button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    <div id="res_table" class="container mt-4">
+      <table id="bookSearchResults" class="table <% if(active == "all"){ %> table-hover <% } %> table-sm">
+          <thead>
+              <tr>
+                  <% if(active == "all") {%>
+                  <th>Loan id</th>
+                  <% } %>
+                  <th>Borrower id</th>
+                  <th>Borrower name</th>
+                  <th class="text-right">Fine amount</th>
+                  <% if(active == "all") {%>
+                  <th class="text-right">Paid</th>
+                  <% } %>
+              </tr>
+          </thead>
+          <tbody>
+            <% for(let i = 0; i < rows.length; i++) { %>
+              <% if(active == "all"){ %>
+                <tr class="clickable" data-toggle = "modal" data-id = "<%= i %>" data-target="#payModal">
+              <% } else{ %>
+                <tr>
+              <% } %>
+                  <% if(active == "all") {%>
+                  <td name="loan_id"><%= rows[i].loan_id %></td>
+                  <% } %>
+                  <td><%= rows[i].card_id %></td>
+                  <td><%= rows[i].name %></td>
+                  <td class="text-right"><%= rows[i].total %></td>
+                  <% if(active == "all") {%>
+                  <td class="text-right"><span class= "badge badge-<%= rows[i].paid == 1 ? 'success' : 'danger' %>"><%= rows[i].paid == 1 ? 'Yes' : 'No' %></span></td>
+                  <% } %>
+              </tr>
+            <% } %>
+          </tbody>
+      </table>
+    </div>
+    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h5 class="modal-title" id="updateModalLabel">Success</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>The fines are updated!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="paymentDoneModal" tabindex="-1" role="dialog" aria-labelledby="paymentDoneModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h5 class="modal-title" id="paymentDoneModalLabel">Information</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Payment already done!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h5 class="modal-title" id="successModalLabel">Success</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Payment made!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="notcheckedinModal" tabindex="-1" role="dialog" aria-labelledby="notcheckedinModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h5 class="modal-title" id="notcheckedinModalLabel">Information</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Cannot make payment. Book is not checked in yet!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="payModal" tabindex="-1" role="dialog" aria-labelledby="payModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h5 class="modal-title" id="payModalLabel">Make Payment</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="md-form mb-3">
+              <label for="loan_id">Loan ID</label>
+              <input id="loan_id" class="form-control validate" readonly>
+            </div>
+            <div class="md-form mb-3">
+              <label for="fine_amount">Amount</label>
+              <input id="fine_amount" class="form-control validate" readonly>
+            </div>
+            <div class="row d-flex align-items-center mb-4">
+              <div class="text-center mb-3 col-md-12">
+                <button id="submitPayment" type="submit" class="btn btn-primary btn-block">Confirm</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

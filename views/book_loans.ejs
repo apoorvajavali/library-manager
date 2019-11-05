@@ -1,0 +1,83 @@
+<script src="./javascripts/book_loans.js"></script>
+<table id="bookLoanSearchResults" class="table table-sm table-hover">
+    <thead>
+        <tr>
+            <th>Loan ID</th>
+            <th>ISBN</th>
+            <th>Card number</th>
+            <th>Name</th>
+            <th>Check out date</th>
+            <th>Due Date</th>
+            <th class="text-right">Checked In</th>
+        </tr>
+    </thead>
+    <tbody>
+      <% for(let i = 0; i < rows.length; i++) { %>
+        <tr class='clickable-row' data-toggle="modal" data-id='<%= i %>' data-target="#checkinModal">
+            <td><%= rows[i].loan_id %></td>
+            <td><%= rows[i].isbn %></td>
+            <td><%= rows[i].card_id %></td>
+            <td><%= rows[i].name %></td>
+            <td><%= rows[i].date_out %></td>
+            <td><%= rows[i].due_date %></td>
+            <td class="text-right"><span class= "badge badge-<%= rows[i].checked_in == 1 ? 'success' : 'danger' %>"><%= rows[i].checked_in == 1 ? 'Yes' : 'No' %></span></td>
+        </tr>
+      <% } %>
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="checkinModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="modal-title" id="myModalLabel">Confirm</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row d-flex align-items-center">
+          <div class="text-center mb-3 col-md-12">
+            <button id="submitCheckIn" type="button" class="btn btn-primary">Check In</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="modal-title" id="successModalLabel">Success</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Book checked in!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 class="modal-title" id="infoModalLabel">Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>The book is already checked in!</p>
+      </div>
+    </div>
+  </div>
+</div>
