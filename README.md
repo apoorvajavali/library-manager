@@ -13,9 +13,9 @@ d.	Book Authors: stores the authors of the books.
 e.	Borrower: stores the borrower details like card number, name, SSN, etc.
 f.	Fine: stores the fine amount and payment that a borrower owes.
 
-2.	Node.js Backend: This hosts the LMS and acts as the application server that renders the UI. It interacts with both database server and the client to process requests from client and query/read the data from the database. 
+2.	Node.js Backend: This hosts the LMS and acts as the application server that renders the UI. It interacts with both database server and the client to process requests from client and query/read the data from the database. Web application framework used is Express.js 
 
-3.	Web GUI: This is the user interface part of LMS developed using jQuery, HTML, Bootstrap, Express.js (UI framework for Node.js). The UI will be accessed by the end user (librarians) via web browsers. It is the client through which user interacts with application and database server. 
+3.	Web GUI: This is the user interface part of LMS developed using jQuery, HTML, Bootstrap. The UI will be accessed by the end user (librarians) via web browsers. It is the client through which user interacts with application and database server. 
 
 
 # Demo
